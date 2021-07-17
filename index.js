@@ -24,6 +24,25 @@ const influx = new Influx.InfluxDB({
         }
     ]
 });
+// const influx = new Influx.InfluxDB({
+//     host: process.env.INFLUX_HOST || 'f444a871-16c8-400d-8cbd-15b141fd3de3.uptether-chart-2754.influxdb.dbs.scalingo.com:31504',
+//     database: 'uptether_chart_2754',
+//     username: 'billy93',
+//     password: 'abcd1234',
+//     schema: [
+//         {
+//         measurement: 'trade',
+//         fields: {
+//             price: Influx.FieldType.FLOAT,
+//             size: Influx.FieldType.INTEGER
+//         },
+//         tags: [
+//             'symbol',
+//             'side'
+//         ]
+//         }
+//     ]
+// });
 
 function genRand(min, max, decimalPlaces) {  
     var rand = Math.random()*(max-min) + min;
