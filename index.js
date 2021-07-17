@@ -164,7 +164,7 @@ async function getPrice(){
 // dummyPrice();
 getPrice();
 
-app.listen(3000, function() {
+app.listen(process.env.PORT, function() {
     console.log('listening on 3000')
 });
 app.get('/', (req, res) => {
