@@ -25,7 +25,8 @@ var BigNumber = require('big-number');
 //     ]
 // });
 const influx = new Influx.InfluxDB({
-    host: 'f444a871-16c8-400d-8cbd-15b141fd3de3.uptether-chart-2754.influxdb.dbs.scalingo.com:31504',
+    host: 'f444a871-16c8-400d-8cbd-15b141fd3de3.uptether-chart-2754.influxdb.dbs.scalingo.com',
+    port: 31504,
     database: 'uptether_chart_2754',
     username: 'billy93',
     password: 'abcd1234',
