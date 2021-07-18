@@ -101,69 +101,58 @@ async function dummyPrice(){
 }
 
 
-async function getPrice(){
-    const provider = new ethers.providers.JsonRpcProvider("https://rpc-mainnet.maticvigil.com");
-    const address = "0x04A2fAB8dD40EEE62A12ce8692853e291ddbF54A";
-    const abi = '[{"inputs":[{"internalType":"contract IERC31337","name":"_eliteToken","type":"address"},{"internalType":"contract RootedToken","name":"_rootedToken","type":"address"},{"internalType":"contract IUniswapV2Router02","name":"_uniswapV2Router","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"}],"name":"buyRooted","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"token","type":"address"}],"name":"recoverTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"}],"name":"sellRooted","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]';
-    var contract = new ethers.Contract(address,abi,provider);
+const provider = new ethers.providers.JsonRpcProvider("https://rpc-mainnet.maticvigil.com");
+const address = "0x04A2fAB8dD40EEE62A12ce8692853e291ddbF54A";
+const abi = '[{"inputs":[{"internalType":"contract IERC31337","name":"_eliteToken","type":"address"},{"internalType":"contract RootedToken","name":"_rootedToken","type":"address"},{"internalType":"contract IUniswapV2Router02","name":"_uniswapV2Router","type":"address"}],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"previousOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"}],"name":"buyRooted","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"claimOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountOut","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsIn","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"}],"name":"getAmountsOut","outputs":[{"internalType":"uint256[]","name":"amounts","type":"uint256[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"contract IERC20","name":"token","type":"address"}],"name":"recoverTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address","name":"to","type":"address"}],"name":"sellRooted","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"amountIn","type":"uint256"},{"internalType":"uint256","name":"amountOutMin","type":"uint256"},{"internalType":"address[]","name":"path","type":"address[]"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"deadline","type":"uint256"}],"name":"swapExactTokensForTokensSupportingFeeOnTransferTokens","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"stateMutability":"nonpayable","type":"function"}]';
+var contract = new ethers.Contract(address,abi,provider);
 
-    var inputAddress = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F";
-    var outputAddress = "0xCb5f72d37685C3D5aD0bB5F982443BC8FcdF570E";
+var inputAddress = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F";
+var outputAddress = "0xCb5f72d37685C3D5aD0bB5F982443BC8FcdF570E";
 
-    while(true){
-        let value = await contract.getAmountsIn(1, [outputAddress, inputAddress])
-        var price = 1/ethers.utils.formatUnits(value[0], 'szabo');
-        console.log(price);
-        const now1 = new Date().getTime() * 1000;
-        const trade = {
-            symbol:"USDTupUSDT",
-            side:"buy",
-            price:price,
-            size:1,
-            timestamp: now1
-        };
-        
-        influx.writePoints([
-            {
-            measurement: 'trade',
-            tags: {
-                symbol: trade.symbol,
-                side: trade.side
-            },
-            fields: { 
-                price: trade.price, size: trade.size
-            },
-            timestamp: trade.timestamp
-            }
-        ], {
-            precision: 'u'
-        });
+const cron = require('node-cron');
+cron.schedule("*/30 * * * * *", function() {
 
-        let query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_1m" FROM "trade" WHERE time > now() - 7d GROUP BY time(1m), symbol';
-        influx.query(query);//.then( result => { console.log("Success1") }).catch( error => console.log("Error ", error) );
+    let value = await contract.getAmountsIn(1, [outputAddress, inputAddress])
+    var price = 1/ethers.utils.formatUnits(value[0], 'szabo');
+    console.log("running a task every 30 second price : "+price);
 
-        query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_5m" FROM "trade" WHERE time > now() - 7d GROUP BY time(5m), symbol';
-        influx.query(query);//.then( result => { console.log("Success2") }).catch( error => console.log("Error ", error) );
+    const now1 = new Date().getTime() * 1000;
+    const trade = {
+        symbol:"USDTupUSDT",
+        side:"buy",
+        price:price,
+        size:1,
+        timestamp: now1
+    };
+    
+    influx.writePoints([
+        {
+        measurement: 'trade',
+        tags: {
+            symbol: trade.symbol,
+            side: trade.side
+        },
+        fields: { 
+            price: trade.price, size: trade.size
+        },
+        timestamp: trade.timestamp
+        }
+    ], {
+        precision: 'u'
+    });
 
-        query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_15m" FROM "trade" WHERE time > now() - 7d GROUP BY time(15m), symbol';
-        influx.query(query);//.then( result => { console.log("Success3") }).catch( error => console.log("Error ", error) );
+    let query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_1m" FROM "trade" WHERE time > now() - 7d GROUP BY time(1m), symbol';
+    influx.query(query);//.then( result => { console.log("Success1") }).catch( error => console.log("Error ", error) );
 
-        query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_1h" FROM "trade" WHERE time > now() - 7d GROUP BY time(1h), symbol';
-        influx.query(query);//.then( result => { console.log("Success4") }).catch( error => console.log("Error ", error) );
+    query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_5m" FROM "trade" WHERE time > now() - 7d GROUP BY time(5m), symbol';
+    influx.query(query);//.then( result => { console.log("Success2") }).catch( error => console.log("Error ", error) );
 
-        // query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_6h" FROM "trade" GROUP BY time(6h), symbol';
-        // influx.query(query).then( result => { console.log("Success5") }).catch( error => console.log("Error ", error) );
+    query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_15m" FROM "trade" WHERE time > now() - 7d GROUP BY time(15m), symbol';
+    influx.query(query);//.then( result => { console.log("Success3") }).catch( error => console.log("Error ", error) );
 
-        // query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_1d" FROM "trade" GROUP BY time(1d), symbol';
-        // influx.query(query).then( result => { console.log("Success6") }).catch( error => console.log("Error ", error) );
-
-        // query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_7d" FROM "trade" GROUP BY time(7d), symbol';
-        // influx.query(query).then( result => { console.log("Success7") }).catch( error => console.log("Error ", error) );
-        await sleep(30000);
-    }
-}
-// dummyPrice();
-getPrice();
+    query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_1h" FROM "trade" WHERE time > now() - 7d GROUP BY time(1h), symbol';
+    influx.query(query);//.then( result => { console.log("Success4") }).catch( error => console.log("Error ", error) );
+});
 
 app.listen(process.env.PORT, function() {
     console.log('listening on 3000')
