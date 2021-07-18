@@ -110,7 +110,7 @@ var inputAddress = "0xc2132D05D31c914a87C6611C10748AEb04B58e8F";
 var outputAddress = "0xCb5f72d37685C3D5aD0bB5F982443BC8FcdF570E";
 
 const cron = require('node-cron');
-cron.schedule("*/30 * * * * *", function() {
+cron.schedule("*/30 * * * * *", async function() {
 
     let value = await contract.getAmountsIn(1, [outputAddress, inputAddress])
     var price = 1/ethers.utils.formatUnits(value[0], 'szabo');
