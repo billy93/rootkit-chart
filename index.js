@@ -25,11 +25,11 @@ var BigNumber = require('big-number');
 //     ]
 // });
 const influx = new Influx.InfluxDB({
-    host: 'f444a871-16c8-400d-8cbd-15b141fd3de3.uptether-chart-2754.influxdb.dbs.scalingo.com',
-    port: 31504,
-    database: 'uptether_chart_2754',
-    username: 'billy93',
-    password: 'abcd1234',
+    host: process.env.SCALINGO_INFLUX_HOST,
+    port: process.env.SCALINGO_INFLUX_PORT,
+    database: process.env.SCALINGO_INFLUX_DB,
+    username: process.env.SCALINGO_INFLUX_USERNAME,
+    password: process.env.SCALINGO_INFLUX_PASSWORD,
     schema: [
         {
         measurement: 'trade',
