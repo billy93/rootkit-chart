@@ -159,7 +159,7 @@ async function getPrice(){
 
         // query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_7d" FROM "trade" GROUP BY time(7d), symbol';
         // influx.query(query).then( result => { console.log("Success7") }).catch( error => console.log("Error ", error) );
-        await sleep(10000);
+        await sleep(30000);
     }
 }
 // dummyPrice();
