@@ -139,16 +139,16 @@ async function getPrice(){
             precision: 'u'
         });
 
-        let query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_1m" FROM "trade" GROUP BY time(1m), symbol';
+        let query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_1m" FROM "trade" WHERE time > now() - 7d GROUP BY time(1m), symbol';
         influx.query(query);//.then( result => { console.log("Success1") }).catch( error => console.log("Error ", error) );
 
-        query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_5m" FROM "trade" GROUP BY time(5m), symbol';
+        query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_5m" FROM "trade" WHERE time > now() - 7d GROUP BY time(5m), symbol';
         influx.query(query);//.then( result => { console.log("Success2") }).catch( error => console.log("Error ", error) );
 
-        query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_15m" FROM "trade" GROUP BY time(15m), symbol';
+        query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_15m" FROM "trade" WHERE time > now() - 7d GROUP BY time(15m), symbol';
         influx.query(query);//.then( result => { console.log("Success3") }).catch( error => console.log("Error ", error) );
 
-        query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_1h" FROM "trade" GROUP BY time(1h), symbol';
+        query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_1h" FROM "trade" WHERE time > now() - 7d GROUP BY time(1h), symbol';
         influx.query(query);//.then( result => { console.log("Success4") }).catch( error => console.log("Error ", error) );
 
         // query = 'SELECT MIN(price) as low, MAX(price) as high, FIRST(price) as open, LAST(price) as close, SUM(size) as volume INTO "price_6h" FROM "trade" GROUP BY time(6h), symbol';
