@@ -174,7 +174,7 @@ app.get('/', (req, res) => {
         tf = req.query.tf;
     }
 
-    let query = "select * from price_"+tf+" order by time asc";
+    let query = "select * from price_"+tf+" WHERE time > now() - 7d order by time asc";
     console.log(query);
     influx.query(query)
     .then( result => {
